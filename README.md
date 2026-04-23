@@ -87,17 +87,17 @@ Examples:
 
 ### `consult-ripfd-full`
 
-For when you need complete access to the full range of `rg` and `fd` options.  The "full" version provides complete access to the command line options of both `fd` and `rg`.  It does so by recognizing **two** `--` argument separators: 
+For when you need _complete_ access to the full range of `rg` and `fd` options.  The "full" version provides complete access to the command line options of both `fd` and `rg`.  It does so by recognizing **two** `--` argument separators: 
 
 ```
-    RG-PATTERNS -- FD-OPTS -- RG-OPTS
+    FD-OPTS -- RG-OPTS -- RG-PATTERNS 
 ```
 
 Note that you can specify file pattern matches using the `fd` keyword argument `--and`.
 
 Example:
 
-- `#macro -- --changed-within 1w --  -A 2` : search for the word `macro` in files changed within the last week, and show two lines of context after each match.
+- `#--changed-within 1w --  -A 2 -- macro def` : search for the word `macro` and `def` (any order) in files changed within the last week, and also to show two lines of context after each match.
 
 ## Thanks
 
