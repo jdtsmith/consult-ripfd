@@ -52,12 +52,12 @@
          (rg-builder-with-paths (consult--ripgrep-make-builder paths)))
     (lambda (input)
       (let* ((start (string-match opt-pat input))
-             (start2 (and start (string-match opt-pat input (match-end 1)))))
+	     (end (and start (match-end 0)))
+             (start2 (and start (string-match opt-pat input end))))
         (if (null start)
             (funcall rg-builder-with-paths input) ; rg-only search
-          (let ((fd-cmd (funcall fd-builder (concat ". " (substring input start start2))))
-                (rg-cmd (funcall rg-builder (concat (substring input 0 start)
-                                                     (and start2 (substring input start2))))))
+          (let ((fd-cmd (funcall fd-builder (concat (substring input 0 start) " .")))
+                (rg-cmd (funcall rg-builder (substring input end))))
             (cons (append (car fd-cmd)
                           (unless (or (member "-t" (car fd-cmd))
                                       (member "--type" (car fd-cmd)))
@@ -75,11 +75,13 @@ Input is composed using the full complement of `fd' and `rg' flags, with
 up to two `--' option separators:
 
     RG-PATTERNS              (simple `rg'-only search for RG-PATTERNS)
-    RG-PATTERNS -- FD-OPTS  (`rg' search for RG-PATTERNS over files matching
+
+    FD-OPTS -- RG-PATTERNS  (`rg' search for RG-PATTERNS over files matching
                               FD-OPTS for `fd'; see `rg(1)')
-    RG-PATTERNS -- FD-OPTS -- RG-OPTS  (`rg' search for RG-PATTERNS using
-                                        RG-OPTS over files matching FD-OPTS
-                                        for `fd'; see `fd(1)')
+
+    FD-OPTS -- RG-OPTS -- RG-PATTERNS (`rg' search for RG-PATTERNS using
+                                        RG-OPTS over files matching
+                                        FD-OPTS for `fd'; see `fd(1)')
 
 Hint: to specify one or more `fd' file regexp patterns to match, use
 FD-OPTS that include `--and PATTERN'."
