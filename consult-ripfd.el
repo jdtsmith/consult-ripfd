@@ -1,10 +1,10 @@
 ;;; consult-ripfd.el --- Consult mashup of ripgrep + fd -*- lexical-binding: t; -*-
-;; Copyright (C) 2025 J.D. Smith
+;; Copyright (C) 2025-2026 J.D. Smith
 
 ;; Author: J.D. Smith <jdtsmith@gmail.com>
 ;; Homepage: https://github.com/jdtsmith/consult-ripfd
 ;; Package-Requires: ((emacs "29.1") (consult "3.3"))
-;; Version: 0.2
+;; Version: 0.2.1
 ;; Keywords: convenience
 
 ;; consult-ripfd is free software: you can redistribute it and/or
