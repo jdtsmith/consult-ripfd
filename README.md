@@ -48,7 +48,11 @@ There are two commands, both of which combine `fd` and `rg` into one search tool
 The main command presents an simplified interface with a single curated list of the most useful options from both tools:
 
 ```
- RG-PATTERNS -- OPTION-FLAGS
+ RG-PATTERNS OPTION-FLAGS
+    
+    OR
+
+ OPTION-FLAGS -- RG-PATTERNS [faster, when OPTION-FLAGS limits the files searched]
 
  `fd'-relevant option flags:
 
@@ -80,9 +84,9 @@ The main command presents an simplified interface with a single curated list of 
 
 Examples:
 
-- `#\beat\b -- -n 2025-12-31` : lines that contain the standalone word `eat` in files with modification times newer than new year's eve.
-- `# ^[\ \t]*$ --  -v -e py -d 3` : non-blank lines in `py` files at most 3 directories below the search dir.  Note the escaping of the space for consult.
-- `#[a-d]\{3\}$ -- -b 4w -S +100k -g org*.org` : lines ending 3 of the letters `a-d` in large (>100kb) `org*.org` files which were last modified prior to 4 weeks ago.
+- `#\beat\b -n 2025-12-31` : lines that contain the standalone word `eat` in files with modification times newer than new year's eve.
+- `#^[\ \t]*$ -v -e py -d 3` : non-blank lines in `py` files at most 3 directories below the search dir.  Note the escaping of the space for consult.
+- `-b 4w -S +100k -g org*.org -- #[a-d]\{3\}$` : lines ending 3 of the letters `a-d` in large (>100kb) `org*.org` files which were last modified prior to 4 weeks ago.  Note the swapping of options and `rg` patterns, which makes this more efficient/responsive as the file listing is winnowed first.
 
 
 ### `consult-ripfd-full`
